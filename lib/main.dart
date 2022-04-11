@@ -1,8 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:twentyfoursolver_flutter/algorithm.dart';
 import 'package:twentyfoursolver_flutter/bgtext.dart';
 import 'package:twentyfoursolver_flutter/bgtextfield.dart';
 
@@ -32,6 +31,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final controller = PageController(initialPage: 0);
+  int currentPage = 1;
+  int itemCount = 16;
+  late int totalPage = (dummySolution().length / itemCount).ceil();
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,9 +49,9 @@ class _HomePageState extends State<HomePage> {
         Container(
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: const AssetImage("assets/mockup.png"),
-                  colorFilter: ColorFilter.mode(
-                      Colors.white.withOpacity(0.3), BlendMode.modulate))),
+            fit: BoxFit.fill,
+            image: const AssetImage("assets/cave.png"),
+          )),
         ),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 105),
@@ -111,9 +120,82 @@ class _HomePageState extends State<HomePage> {
                       )
                     ],
                   ),
-                  Column(
-                    // Hasil
-                    children: [],
+                  SizedBox(width: 50),
+                  Container(
+                    height: 400,
+                    width: 600,
+                    padding: EdgeInsets.all(35),
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: AssetImage("assets/papan.png"))),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("242 solutions found",
+                                  style: TextStyle(
+                                      fontFamily: "Caveman",
+                                      fontSize: 10,
+                                      color: Color(0xff554C4B))),
+                              // Tombol
+                              Row(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      if (currentPage > 1) {
+                                        setState(() {
+                                          currentPage -= 1;
+                                        });
+                                      }
+                                      controller.previousPage(
+                                          duration: const Duration(seconds: 1),
+                                          curve: Curves.easeOut);
+                                    },
+                                    child: Text("< ",
+                                        style: TextStyle(
+                                            fontFamily: "Caveman",
+                                            fontSize: 10)),
+                                  ),
+                                  Text(
+                                    currentPage.toString() +
+                                        "/" +
+                                        totalPage.toString(),
+                                    style: TextStyle(
+                                        fontFamily: "Caveman",
+                                        fontSize: 10,
+                                        color: Color(0xff554C4B)),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      if (currentPage < totalPage) {
+                                        setState(() {
+                                          currentPage += 1;
+                                        });
+                                      }
+                                      controller.nextPage(
+                                          duration: const Duration(seconds: 1),
+                                          curve: Curves.easeOut);
+                                    },
+                                    child: Text(" >",
+                                        style: TextStyle(
+                                            fontFamily: "Caveman",
+                                            fontSize: 10)),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Expanded(
+                          child: buildPageView(context, controller, 16),
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -122,5 +204,54 @@ class _HomePageState extends State<HomePage> {
         )
       ],
     ));
+  }
+
+  List<List<Widget>> splitListToChunks(List<Widget> list, int listItemCount) {
+    List<List<Widget>> newList = [];
+    int pageCount = (list.length / listItemCount).ceil();
+
+    for (int i = 0; i < pageCount; i++) {
+      int chunk = listItemCount;
+      if (list.length < listItemCount) {
+        chunk = list.length;
+      }
+      newList.add(list.sublist(0, chunk));
+      list.removeRange(0, chunk);
+    }
+
+    return newList;
+  }
+
+  Widget buildPageView(
+      BuildContext context, PageController controller, int itemCount) {
+    List<String> list = dummySolution();
+    // ubah jadi listitem
+    List<Text> listItem = list
+        .map((e) => Text(
+              e,
+              style: TextStyle(fontFamily: "Patrick", fontSize: 26),
+            ))
+        .toList();
+    // Pecah jadi chucks
+    List<List<Widget>> chunks = splitListToChunks(listItem, itemCount);
+    // return column dgn isi list berbeda
+    return PageView.builder(
+      controller: controller,
+      itemBuilder: (context, index) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+                children: chunks[index]
+                    .sublist(0, (chunks[index].length / 2).ceil())),
+            SizedBox(width: 30),
+            Column(
+                children:
+                    chunks[index].sublist((chunks[index].length / 2).ceil())),
+          ],
+        );
+      },
+      itemCount: chunks.length,
+    );
   }
 }
