@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class BgTextfield extends StatelessWidget {
-  const BgTextfield({Key? key}) : super(key: key);
+  final TextEditingController controller;
+  const BgTextfield({Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +14,7 @@ class BgTextfield extends StatelessWidget {
       width: 142,
       child: Center(
           child: TextField(
+              controller: controller,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               keyboardType: TextInputType.number,
               cursorColor: Color(0xffB1A6A5),
