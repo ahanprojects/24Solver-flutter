@@ -275,15 +275,16 @@ class _HomePageState extends State<DesktopBody> {
                                     onTap: () {
                                       if (currentPage > 1) {
                                         setState(() {
+                                          controller.previousPage(
+                                              duration:
+                                                  const Duration(seconds: 1),
+                                              curve: Curves.easeOut);
                                           currentPage -= 1;
                                           pageNumber = currentPage.toString() +
                                               "/" +
                                               totalPage.toString();
                                         });
                                       }
-                                      controller.previousPage(
-                                          duration: const Duration(seconds: 1),
-                                          curve: Curves.easeOut);
                                     },
                                     child: const Text("< ",
                                         style: TextStyle(
@@ -301,15 +302,16 @@ class _HomePageState extends State<DesktopBody> {
                                     onTap: () {
                                       if (currentPage < totalPage) {
                                         setState(() {
+                                          controller.nextPage(
+                                              duration:
+                                                  const Duration(seconds: 1),
+                                              curve: Curves.easeOut);
                                           currentPage += 1;
                                           pageNumber = currentPage.toString() +
                                               "/" +
                                               totalPage.toString();
                                         });
                                       }
-                                      controller.nextPage(
-                                          duration: const Duration(seconds: 1),
-                                          curve: Curves.easeOut);
                                     },
                                     child: const Text(" >",
                                         style: TextStyle(
@@ -323,8 +325,8 @@ class _HomePageState extends State<DesktopBody> {
                         ),
                         const SizedBox(height: 20),
                         Expanded(
-                          child: buildPageView(
-                              context, controller, 16, num1, num2, num3, num4),
+                          child: buildPageView(context, controller, itemCount,
+                              num1, num2, num3, num4),
                         )
                       ],
                     ),

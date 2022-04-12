@@ -29,7 +29,7 @@ class _HomePageState extends State<MobileBody> {
   String solutionFound = 'Solutions';
   String pageNumber = '';
   int currentPage = 1;
-  int itemCount = 16;
+  int itemCount = 8;
   late int totalPage = (totalSolution / itemCount).ceil();
   @override
   void dispose() {
@@ -272,7 +272,7 @@ class _HomePageState extends State<MobileBody> {
                       ),
                       SizedBox(height: 20),
                       Container(
-                        height: 400,
+                        height: 500,
                         width: 600,
                         padding: EdgeInsets.all(35),
                         decoration: BoxDecoration(
@@ -291,7 +291,7 @@ class _HomePageState extends State<MobileBody> {
                                   Text(solutionFound,
                                       style: TextStyle(
                                           fontFamily: "Caveman",
-                                          fontSize: 10,
+                                          fontSize: 6,
                                           color: Color(0xff554C4B))),
                                   // Tombol
                                   Row(
@@ -300,6 +300,10 @@ class _HomePageState extends State<MobileBody> {
                                         onTap: () {
                                           if (currentPage > 1) {
                                             setState(() {
+                                              controller.previousPage(
+                                                  duration: const Duration(
+                                                      seconds: 1),
+                                                  curve: Curves.easeOut);
                                               currentPage -= 1;
                                               pageNumber =
                                                   currentPage.toString() +
@@ -307,10 +311,6 @@ class _HomePageState extends State<MobileBody> {
                                                       totalPage.toString();
                                             });
                                           }
-                                          controller.previousPage(
-                                              duration:
-                                                  const Duration(seconds: 1),
-                                              curve: Curves.easeOut);
                                         },
                                         child: Text("< ",
                                             style: TextStyle(
@@ -321,7 +321,7 @@ class _HomePageState extends State<MobileBody> {
                                         pageNumber,
                                         style: TextStyle(
                                             fontFamily: "Caveman",
-                                            fontSize: 10,
+                                            fontSize: 6,
                                             color: Color(0xff554C4B)),
                                       ),
                                       InkWell(
@@ -334,6 +334,10 @@ class _HomePageState extends State<MobileBody> {
                                           }
                                           if (currentPage < totalPage) {
                                             setState(() {
+                                              controller.nextPage(
+                                                  duration: const Duration(
+                                                      seconds: 1),
+                                                  curve: Curves.easeOut);
                                               currentPage += 1;
                                               pageNumber =
                                                   currentPage.toString() +
@@ -341,10 +345,6 @@ class _HomePageState extends State<MobileBody> {
                                                       totalPage.toString();
                                             });
                                           }
-                                          controller.nextPage(
-                                              duration:
-                                                  const Duration(seconds: 1),
-                                              curve: Curves.easeOut);
                                         },
                                         child: Text(" >",
                                             style: TextStyle(
@@ -358,8 +358,8 @@ class _HomePageState extends State<MobileBody> {
                             ),
                             SizedBox(height: 20),
                             Expanded(
-                              child: buildPageView(context, controller, 16,
-                                  num1, num2, num3, num4),
+                              child: buildPageView(context, controller,
+                                  itemCount, num1, num2, num3, num4),
                             ),
                           ],
                         ),
@@ -405,22 +405,18 @@ class _HomePageState extends State<MobileBody> {
         .toList();
     // Pecah jadi chucks
     List<List<Widget>> chunks = splitListToChunks(listItem, itemCount);
+    for (var item in chunks) {
+      print(item);
+    }
+    print(chunks.length);
     // return column dgn isi list berbeda
     return PageView.builder(
+      physics: NeverScrollableScrollPhysics(),
       controller: controller,
       itemBuilder: (context, index) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-                children: chunks[index]
-                    .sublist(0, (chunks[index].length / 2).ceil())),
-            SizedBox(width: 30),
-            Column(
-                children:
-                    chunks[index].sublist((chunks[index].length / 2).ceil())),
-          ],
-        );
+        return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: chunks[index]);
       },
       itemCount: chunks.length,
     );
