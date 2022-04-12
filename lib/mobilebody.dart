@@ -70,6 +70,7 @@ class _HomePageState extends State<MobileBody> {
                           child: Bgtext(
                               text: "24 Solver",
                               path: "assets/space.png",
+                              fontSize: 7,
                               width: 280,
                               height: 83),
                         ),
@@ -180,6 +181,7 @@ class _HomePageState extends State<MobileBody> {
                         },
                         child: Bgtext(
                           text: "?",
+                          fontSize: 7,
                           path: "assets/bulet.png",
                           height: 70,
                           width: 70,
@@ -262,6 +264,7 @@ class _HomePageState extends State<MobileBody> {
                                 },
                                 child: Bgtext(
                                     text: "Solve",
+                                    fontSize: 7,
                                     path: "assets/spaceround.png",
                                     width: 220,
                                     height: 50),
@@ -285,74 +288,13 @@ class _HomePageState extends State<MobileBody> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(solutionFound,
                                       style: TextStyle(
                                           fontFamily: "Caveman",
-                                          fontSize: 6,
+                                          fontSize: 7,
                                           color: Color(0xff554C4B))),
-                                  // Tombol
-                                  Row(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          if (currentPage > 1) {
-                                            setState(() {
-                                              controller.previousPage(
-                                                  duration: const Duration(
-                                                      seconds: 1),
-                                                  curve: Curves.easeOut);
-                                              currentPage -= 1;
-                                              pageNumber =
-                                                  currentPage.toString() +
-                                                      "/" +
-                                                      totalPage.toString();
-                                            });
-                                          }
-                                        },
-                                        child: Text("< ",
-                                            style: TextStyle(
-                                                fontFamily: "Caveman",
-                                                fontSize: 10)),
-                                      ),
-                                      Text(
-                                        pageNumber,
-                                        style: TextStyle(
-                                            fontFamily: "Caveman",
-                                            fontSize: 6,
-                                            color: Color(0xff554C4B)),
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          if (input1.text.isEmpty ||
-                                              input2.text.isEmpty ||
-                                              input3.text.isEmpty ||
-                                              input4.text.isEmpty) {
-                                            return;
-                                          }
-                                          if (currentPage < totalPage) {
-                                            setState(() {
-                                              controller.nextPage(
-                                                  duration: const Duration(
-                                                      seconds: 1),
-                                                  curve: Curves.easeOut);
-                                              currentPage += 1;
-                                              pageNumber =
-                                                  currentPage.toString() +
-                                                      "/" +
-                                                      totalPage.toString();
-                                            });
-                                          }
-                                        },
-                                        child: Text(" >",
-                                            style: TextStyle(
-                                                fontFamily: "Caveman",
-                                                fontSize: 10)),
-                                      ),
-                                    ],
-                                  )
                                 ],
                               ),
                             ),
@@ -411,7 +353,6 @@ class _HomePageState extends State<MobileBody> {
     print(chunks.length);
     // return column dgn isi list berbeda
     return PageView.builder(
-      physics: NeverScrollableScrollPhysics(),
       controller: controller,
       itemBuilder: (context, index) {
         return Column(
