@@ -45,22 +45,22 @@ class _HomePageState extends State<DesktopBody> {
         body: Stack(
       children: [
         Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
             fit: BoxFit.fill,
-            image: const AssetImage("assets/cave.png"),
+            image: AssetImage("assets/cave.png"),
           )),
         ),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 105),
-          padding: EdgeInsets.symmetric(horizontal: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 40),
           child: Column(
             children: [
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 // Judul dan help
                 children: [
-                  Expanded(
+                  const Expanded(
                     child: Center(
                       child: Bgtext(
                           text: "24 Solver",
@@ -79,8 +79,8 @@ class _HomePageState extends State<DesktopBody> {
                                 child: Container(
                                   // height: 500,
                                   width: 700,
-                                  padding: EdgeInsets.all(35),
-                                  decoration: BoxDecoration(
+                                  padding: const EdgeInsets.all(35),
+                                  decoration: const BoxDecoration(
                                       image: DecorationImage(
                                           fit: BoxFit.fill,
                                           image:
@@ -91,7 +91,7 @@ class _HomePageState extends State<DesktopBody> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Center(
+                                          const Center(
                                             child: Text(
                                               "24 Solver - Ahan Projects",
                                               style: TextStyle(
@@ -100,8 +100,8 @@ class _HomePageState extends State<DesktopBody> {
                                                   fontSize: 10),
                                             ),
                                           ),
-                                          SizedBox(height: 30),
-                                          Text(
+                                          const SizedBox(height: 30),
+                                          const Text(
                                             "The 24 puzzle is an arithmetic puzzle in which the goal is to manipulate four integers to get the number 24 as the final result. Addition, subtraction, multiplication, and division are the four mathematical operators available.",
                                             style: TextStyle(
                                                 fontFamily: "Patrick",
@@ -109,24 +109,24 @@ class _HomePageState extends State<DesktopBody> {
                                                 color: Color(0xff554C4B),
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          SizedBox(height: 10),
-                                          Text(
+                                          const SizedBox(height: 10),
+                                          const Text(
                                               "How to use 24 solver: input 4 integers between 0 and 99, click the solve button. To clear all text fields and solutions, click the X button.",
                                               style: TextStyle(
                                                   fontFamily: "Patrick",
                                                   color: Color(0xff554C4B),
                                                   fontSize: 20,
                                                   fontWeight: FontWeight.bold)),
-                                          SizedBox(height: 10),
-                                          Text(
+                                          const SizedBox(height: 10),
+                                          const Text(
                                               "The program is using Brute-Force Algorithm to calculate all possible solutions to the inputs given.",
                                               style: TextStyle(
                                                   fontFamily: "Patrick",
                                                   color: Color(0xff554C4B),
                                                   fontSize: 20,
                                                   fontWeight: FontWeight.bold)),
-                                          SizedBox(height: 30),
-                                          Text(
+                                          const SizedBox(height: 30),
+                                          const Text(
                                               "This website is created using Flutter, algorithm is implemented using Python.",
                                               style: TextStyle(
                                                   fontFamily: "Patrick",
@@ -135,7 +135,7 @@ class _HomePageState extends State<DesktopBody> {
                                                   fontWeight: FontWeight.bold)),
                                           InkWell(
                                             onTap: () => _launchURL(),
-                                            child: Text(
+                                            child: const Text(
                                                 "Click here to see the algorithm!",
                                                 style: TextStyle(
                                                     fontFamily: "Patrick",
@@ -144,8 +144,8 @@ class _HomePageState extends State<DesktopBody> {
                                                     fontWeight:
                                                         FontWeight.bold)),
                                           ),
-                                          SizedBox(height: 20),
-                                          Text(
+                                          const SizedBox(height: 20),
+                                          const Text(
                                               "Assets credits: Shutterstock, Pinterest.",
                                               style: TextStyle(
                                                 fontFamily: "Patrick",
@@ -157,7 +157,7 @@ class _HomePageState extends State<DesktopBody> {
                                 ));
                           });
                     },
-                    child: Bgtext(
+                    child: const Bgtext(
                       text: "?",
                       path: "assets/bulet.png",
                       height: 70,
@@ -166,7 +166,7 @@ class _HomePageState extends State<DesktopBody> {
                   ),
                 ],
               ),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               Row(
                 // Input dan board
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -177,19 +177,19 @@ class _HomePageState extends State<DesktopBody> {
                       Row(
                         children: [
                           BgTextfield(controller: input1),
-                          SizedBox(width: 15),
+                          const SizedBox(width: 15),
                           BgTextfield(controller: input2),
                         ],
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                       Row(
                         children: [
                           BgTextfield(controller: input3),
-                          SizedBox(width: 15),
+                          const SizedBox(width: 15),
                           BgTextfield(controller: input4),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Row(
                         children: [
                           InkWell(
@@ -208,20 +208,19 @@ class _HomePageState extends State<DesktopBody> {
                                 solutionFound = "Solutions";
                               });
                             },
-                            child: Bgtext(
+                            child: const Bgtext(
                                 text: "X",
                                 path: "assets/bulet.png",
                                 width: 50,
                                 height: 50),
                           ),
-                          SizedBox(width: 20),
+                          const SizedBox(width: 20),
                           InkWell(
                             onTap: () {
                               if (input1.text.isEmpty ||
                                   input2.text.isEmpty ||
                                   input3.text.isEmpty ||
                                   input4.text.isEmpty) {
-                                print("Empty");
                                 return;
                               }
                               setState(() {
@@ -238,7 +237,7 @@ class _HomePageState extends State<DesktopBody> {
                                     " solutions found";
                               });
                             },
-                            child: Bgtext(
+                            child: const Bgtext(
                                 text: "Solve",
                                 path: "assets/spaceround.png",
                                 width: 220,
@@ -248,12 +247,12 @@ class _HomePageState extends State<DesktopBody> {
                       )
                     ],
                   ),
-                  SizedBox(width: 50),
+                  const SizedBox(width: 50),
                   Container(
                     height: 400,
                     width: 600,
-                    padding: EdgeInsets.all(35),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.all(35),
+                    decoration: const BoxDecoration(
                         image: DecorationImage(
                             fit: BoxFit.fill,
                             image: AssetImage("assets/papan.png"))),
@@ -265,7 +264,7 @@ class _HomePageState extends State<DesktopBody> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(solutionFound,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontFamily: "Caveman",
                                       fontSize: 10,
                                       color: Color(0xff554C4B))),
@@ -286,14 +285,14 @@ class _HomePageState extends State<DesktopBody> {
                                           duration: const Duration(seconds: 1),
                                           curve: Curves.easeOut);
                                     },
-                                    child: Text("< ",
+                                    child: const Text("< ",
                                         style: TextStyle(
                                             fontFamily: "Caveman",
                                             fontSize: 10)),
                                   ),
                                   Text(
                                     pageNumber,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontFamily: "Caveman",
                                         fontSize: 10,
                                         color: Color(0xff554C4B)),
@@ -312,7 +311,7 @@ class _HomePageState extends State<DesktopBody> {
                                           duration: const Duration(seconds: 1),
                                           curve: Curves.easeOut);
                                     },
-                                    child: Text(" >",
+                                    child: const Text(" >",
                                         style: TextStyle(
                                             fontFamily: "Caveman",
                                             fontSize: 10)),
@@ -322,7 +321,7 @@ class _HomePageState extends State<DesktopBody> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Expanded(
                           child: buildPageView(
                               context, controller, 16, num1, num2, num3, num4),
@@ -363,7 +362,7 @@ class _HomePageState extends State<DesktopBody> {
     List<Text> listItem = list
         .map((e) => Text(
               e,
-              style: TextStyle(fontFamily: "Patrick", fontSize: 26),
+              style: const TextStyle(fontFamily: "Patrick", fontSize: 26),
             ))
         .toList();
     // Pecah jadi chucks
@@ -378,7 +377,7 @@ class _HomePageState extends State<DesktopBody> {
             Column(
                 children: chunks[index]
                     .sublist(0, (chunks[index].length / 2).ceil())),
-            SizedBox(width: 30),
+            const SizedBox(width: 30),
             Column(
                 children:
                     chunks[index].sublist((chunks[index].length / 2).ceil())),
